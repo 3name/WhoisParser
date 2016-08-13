@@ -59,6 +59,7 @@ class Afnic extends Regex
             1 => array('/^registrar:(?>[\x20\t]*)(.+)$/im' => 'registrar:name', 
                     '/^created:(?>[\x20\t]*)(.+)$/im' => 'created', 
                     '/^last-update:(?>[\x20\t]*)(.+)$/im' => 'changed', 
+                    '/^expiry.date:(?>[\x20\t]*)(.+)$/im' => 'expires', 
                     '/^status:(?>[\x20\t]*)(.+)$/im' => 'status', 
                     '/^hold:(?>[\x20\t]*)(.+)$/im' => 'hold', 
                     '/^holder-c:(?>[\x20\t]*)(.+)$/im' => 'network:contacts:owner', 
