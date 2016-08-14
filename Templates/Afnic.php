@@ -126,7 +126,7 @@ class Afnic extends Regex
                     $filteredAddress = array($filteredAddress);
                 }
 
-                if ($contactType !== 'owner') {
+                if ($contactType !== 'owner' && $filteredAddress) {
                     $contactObject->organization = $filteredAddress[0];
                     $contactObject->city = end($filteredAddress);
                     unset($filteredAddress[0]);
