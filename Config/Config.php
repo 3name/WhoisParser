@@ -104,10 +104,10 @@ class Config
         }
 
         $defaults = array(
-            'server' => '',
+            'server' => 'whois.nic.' . $tld,
             'port' => 43,
             'format' => '%domain%',
-            'template' => $template,
+            'template' => 'standard',
             'adapter' => 'socket',
             'dummy' => false,
         );
