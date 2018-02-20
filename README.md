@@ -14,9 +14,11 @@ Licensed under the Apache License, Version 2.0 (the "License").
 Installation
 ------------
 
-Installing from source: `git clone git://github.com/novutec/WhoisParser.git` or [download the latest release](https://github.com/novutec/WhoisParser/zipball/master)
+Installing from source: `git clone git://github.com/dkpeall/WhoisParser.git` or [download the latest release](https://github
+.com/dkpeall/WhoisParser/zipball/master)
 
-See Novutec Domain Parser (http://github.com/novutec/DomainParser) or [download the latest release](https://github.com/novutec/DomainParser/zipball/master) and install it as well.
+See Novutec Domain Parser (http://github.com/dkpeall/DomainParser) or [download the latest release](https://github.com/novutec/DomainParser/zipball/master) and 
+install it as well.
 
 Move the source code to your preferred project folder.
 
@@ -149,6 +151,7 @@ ccTLDs (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 [x] CM
 [x] CN
 [x] CO
+[x] CO.ZA
 [x] COM
 [x] COOP
 [ ] CR
@@ -276,6 +279,7 @@ ccTLDs (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 [x] NC
 [ ] NE
 [x] NET
+[x] NET.ZA
 [x] NF
 [x] NG
 [ ] NI
@@ -288,6 +292,7 @@ ccTLDs (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 [x] NZ
 [x] OM
 [x] ORG
+[x] ORG.ZA
 [ ] PA
 [x] PE
 [ ] PF
@@ -362,6 +367,7 @@ ccTLDs (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 [ ] VI
 [ ] VN
 [x] VU
+[x] WEB.ZA
 [x] WF
 [x] WS
 [x] XN--3E0B707E - .kr
@@ -400,7 +406,7 @@ ccTLDs (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 [x] XXX
 [ ] YE
 [x] YT
-[ ] ZA - webbased whois.co.za
+[x] ZA
 [ ] ZM
 [ ] ZW
 ```
@@ -512,18 +518,13 @@ gTLDs and thin registries sort by IANA ID (http://www.iana.org/assignments/regis
 [x] Novutec Inc.
 ```
 
-3rd Party Libraries
--------------------
-We are using our own Domain Parser:
-* Novutec: http://github.com/novutec/DomainParser (Version 2.0.0 and above)
-
 ChangeLog
 ---------
-See ChangeLog at https://github.com/novutec/WhoisParser/blob/master/CHANGELOG.md
+See ChangeLog at https://github.com/dkpeall/WhoisParser/blob/master/CHANGELOG.md
 
 Issues
 ------
-Please report any issues via https://github.com/novutec/WhoisParser/issues
+Please report any issues via https://github.com/dkpeall/WhoisParser/issues
 
 LICENSE and COPYRIGHT
 -----------------------
