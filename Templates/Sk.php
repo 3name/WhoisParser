@@ -45,7 +45,7 @@ class Sk extends Regex
      * @access protected
      */
     protected $blocks = array(
-        1 => '/\nContact(.*?)(?=Updated)/s',
+        1 => '/\nContact.*/s',
         2 => '/\nRegistrar(.*?)(?=Contact)/s',
         3 => '/Domain(.*?)(?=\n\nRegistrar)/s',
     );
