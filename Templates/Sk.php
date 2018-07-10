@@ -68,8 +68,6 @@ class Sk extends Regex
             '/Email:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:email',
             '/Organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:organization',
             '/Organization ID:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:orgid',
-            '/Created:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:created',
-            '/Updated:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:updated',
         ),
 
         2 => array(
@@ -84,8 +82,6 @@ class Sk extends Regex
             '/Email:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:email',
             '/Organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:organization',
             '/Organization ID:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:orgid',
-            '/Created:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:created',
-            '/Updated:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:updated',
         ),
 
         3 => array(
