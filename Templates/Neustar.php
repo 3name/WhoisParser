@@ -43,13 +43,13 @@ class Neustar extends Regex
 	 * @var array
 	 * @access protected
 	 */
-    protected $blocks = array(1 => '/domain name:(?>[\x20\t]*)(.*?)(?=registrant id\:)/is', 
-            2 => '/registrant id:(?>[\x20\t]*)(.*?)(?=administrative contact id\:)/is', 
-            3 => '/administrative contact id:(?>[\x20\t]*)(.*?)(?=billing contact id\:)/is', 
-            4 => '/billing contact id:(?>[\x20\t]*)(.*?)(?=technical contact id\:)/is', 
-            5 => '/technical contact id:(?>[\x20\t]*)(.*?)(?=name server\:)/is', 
-            6 => '/name server:(?>[\x20\t]*)(.*?)(?=created by registrar\:)/is', 
-            7 => '/domain registration date:(?>[\x20\t]*)(.*?)(?=>>>>)/is');
+    protected $blocks = array(
+            1 => '/domain name:(?>[\x20\t]*)(.*?)(?=registry registrant id\:)/is', 
+            2 => '/registry registrant id:(?>[\x20\t]*)(.*?)(?=registry admin id\:)/is', 
+            3 => '/registry admin id:(?>[\x20\t]*)(.*?)(?=registry tech id\:)/is', 
+            4 => '/registry tech id:(?>[\x20\t]*)(.*?)(?=name server\:)/is',
+            5 => '/name server:(?>[\x20\t]*)(.*?)(?=dnssec\:)/is',
+            6 => '/dnssec:(?>[\x20\t]*)(.*?)(?=>>>)/is');
 
     /**
 	 * items for each block
@@ -58,11 +58,16 @@ class Neustar extends Regex
 	 * @access protected
 	 */
     protected $blockItems = array(
-            1 => array('/sponsoring registrar:(?>[\x20\t]*)(.+)$/im' => 'registrar:name', 
-                    '/sponsoring registrar iana id:(?>[\x20\t]*)(.+)$/im' => 'registrar:id', 
-                    '/registrar url \(registration services\):(?>[\x20\t]*)(.+)$/im' => 'registrar:url', 
-                    '/(?>domain )*status:(?>[\x20\t]*)(.+)$/im' => 'status'), 
-            2 => array('/registrant id:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:handle', 
+            1 => array( 
+                    '/registrar url \(registration services\):(?>[\x20\t]*)(.+)$/im' => 'registrar:url',
+                    '/updated date:(?>[\x20\t]*)(.+)$/im' => 'changed',
+                    '/creation date:(?>[\x20\t]*)(.+)$/im' => 'created',
+                    '/registry expiry date:(?>[\x20\t]*)(.+)$/im' => 'expires',
+                    '/registrar:(?>[\x20\t]*)(.+)$/im' => 'registrar:name', 
+                    '/registrar iana id:(?>[\x20\t]*)(.+)$/im' => 'registrar:id',
+                    '/(?>domain )*status:(?>[\x20\t]*)([^\x20\t]+)[ ]+.+$/im' => 'status'), 
+            2 => array(
+                    '/registrant id:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:handle', 
                     '/registrant name:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:name', 
                     '/registrant organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:organization', 
                     '/registrant address[0-9]*:(?>[\x20\t]+)(.+)$/im' => 'contacts:owner:address', 
@@ -88,21 +93,9 @@ class Neustar extends Regex
                     '/administrative contact facsimile number:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:fax', 
                     '/administrative contact email:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:email', 
                     '/administrative application purpose:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:application_purpose', 
-                    '/administrative nexus category:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:nexus_category'), 
-            4 => array('/billing contact id:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:handle', 
-                    '/billing contact name:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:name', 
-                    '/billing contact organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:organization', 
-                    '/billing contact address[0-9]*:(?>[\x20\t]+)(.+)$/im' => 'contacts:billing:address', 
-                    '/billing contact city:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:city', 
-                    '/billing contact state\/province:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:state', 
-                    '/billing contact postal code:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:zipcode', 
-                    '/billing contact country:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:country', 
-                    '/billing contact phone number:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:phone', 
-                    '/billing contact facsimile number:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:fax', 
-                    '/billing contact email:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:email', 
-                    '/billing application purpose:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:application_purpose', 
-                    '/billing nexus category:(?>[\x20\t]*)(.+)$/im' => 'contacts:billing:nexus_category'), 
-            5 => array('/technical contact id:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:handle', 
+                    '/administrative nexus category:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:nexus_category'),
+            4 => array(
+                    '/technical contact id:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:handle', 
                     '/technical contact name:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:name', 
                     '/technical contact organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:organization', 
                     '/technical contact (street|address)[0-9]*:(?>[\x20\t]+)(.+)$/im' => 'contacts:tech:address', 
@@ -115,10 +108,10 @@ class Neustar extends Regex
                     '/technical contact email:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:email', 
                     '/technical application purpose:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:application_purpose', 
                     '/technical nexus category:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:nexus_category'), 
-            6 => array('/name server:(?>[\x20\t]+)(.+)$/im' => 'nameserver'), 
-            7 => array('/domain registration date:(?>[\x20\t]*)(.+)$/im' => 'created', 
-                    '/domain expiration date:(?>[\x20\t]*)(.+)$/im' => 'expires', 
-                    '/domain last updated date:(?>[\x20\t]*)(.+)$/im' => 'changed'));
+            5 => array(
+                    '/name server:(?>[\x20\t]+)(.+)$/im' => 'nameserver'),
+            6 => array(
+                    '/dnssec:(?>[\x20\t]*)(.+)$/im' => 'dnssec'));
 
     /**
      * RegEx to check availability of the domain name
@@ -126,5 +119,23 @@ class Neustar extends Regex
      * @var string
      * @access protected
      */
-    protected $available = '/Not found:/i';
+    protected $available = '/No Data Found/i';
+
+    /**
+     * After parsing ...
+     *
+     * If dnssec key was found we set attribute to true.
+     *
+     * @param  object &$WhoisParser
+     * @return void
+     */
+    public function postProcess(&$WhoisParser)
+    {
+        $ResultSet = $WhoisParser->getResult();
+        if (preg_match("/unsigned/i", $ResultSet->dnssec)) {
+            $ResultSet->dnssec = false;
+        } else {
+            $ResultSet->dnssec = true;
+        }
+    }
 }
