@@ -14,11 +14,13 @@ Licensed under the Apache License, Version 2.0 (the "License").
 Installation
 ------------
 
-Installing from source: `git clone git://github.com/novutec/WhoisParser.git` or [download the latest release](https://github.com/novutec/WhoisParser/zipball/master)
+Install the package via Composer:
 
-See Novutec Domain Parser (http://github.com/novutec/DomainParser) or [download the latest release](https://github.com/novutec/DomainParser/zipball/master) and install it as well.
+```
+$ composer require 3name/whoisparser
+```
 
-Move the source code to your preferred project folder.
+Download from release: [Latest Release](https://github.com/3name/WhoisParser/releases/)
 
 Usage
 -----
